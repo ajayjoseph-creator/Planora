@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, ArrowRight, ArrowLeft, User, CheckCircle, RefreshCw, AlertCircle, Clock, Check, Sparkles, Trophy } from 'lucide-react';
 import Logo from './Logo';
 import axios from 'axios';
+import { BASE_URL } from '../api';
 
 export default function Auth({ onLoginSuccess }) {
   const [isRegister, setIsRegister] = useState(false);
@@ -54,7 +55,7 @@ export default function Auth({ onLoginSuccess }) {
     const idToken = response.credential;
     
     try {
-      const apiResponse = await axios.post('http://localhost:5050/api/auth/google', {
+      const apiResponse = await axios.post(`${BASE_URL}/api/auth/google`, {
         credential: idToken
       });
       const loggedInUser = apiResponse.data;
@@ -130,7 +131,7 @@ export default function Auth({ onLoginSuccess }) {
           setLoading(false);
           return;
         }
-        const response = await axios.post('http://localhost:5050/api/auth/register-request', {
+        const response = await axios.post(`${BASE_URL}/api/auth/register-request`, {
           name: name.trim(),
           email: email.trim().toLowerCase(),
           password: password
@@ -152,7 +153,7 @@ export default function Auth({ onLoginSuccess }) {
           setLoading(false);
           return;
         }
-        const response = await axios.post('http://localhost:5050/api/auth/login', {
+        const response = await axios.post(`${BASE_URL}/api/auth/login`, {
           email: email.trim().toLowerCase(),
           password: password
         });
@@ -187,7 +188,7 @@ export default function Auth({ onLoginSuccess }) {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5050/api/auth/verify-otp', {
+      const response = await axios.post(`${BASE_URL}/api/auth/verify-otp`, {
         email: email.trim().toLowerCase(),
         otp: otpCode,
         name: isRegister ? name.trim() : null,

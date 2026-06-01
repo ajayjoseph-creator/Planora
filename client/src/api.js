@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5050/api/habits';
+export const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5050';
+const API_URL = `${BASE_URL}/api/habits`;
 
 // Helper to extract the current user ID
 const getUserId = () => {

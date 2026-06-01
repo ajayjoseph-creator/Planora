@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { User, Calendar, ArrowRight, ArrowLeft, RefreshCw, Sparkles, Heart, Check } from 'lucide-react';
 import Logo from './Logo';
 import axios from 'axios';
+import { BASE_URL } from '../api';
 
 // Preset habits the user can pick from during onboarding
 const PRESET_HABITS = [
@@ -56,7 +57,7 @@ export default function Onboarding({ user, onComplete }) {
 
     try {
       // 1. Save profile
-      const profileRes = await axios.put('http://localhost:5050/api/auth/complete-profile', {
+      const profileRes = await axios.put(`${BASE_URL}/api/auth/complete-profile`, {
         email: user.email,
         name: nickname.trim(),
         birthday: birthday || ''
@@ -70,7 +71,7 @@ export default function Onboarding({ user, onComplete }) {
       for (const idx of selectedHabits) {
         const habit = PRESET_HABITS[idx];
         try {
-          await axios.post('http://localhost:5050/api/habits', {
+          await axios.post(`${BASE_URL}/api/habits`, {
             title: habit.title,
             description: habit.description,
             category: habit.category,

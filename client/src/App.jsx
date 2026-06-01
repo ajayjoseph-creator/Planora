@@ -12,7 +12,7 @@ import AddHabitModal from './components/AddHabitModal';
 import Analytics from './components/Analytics';
 import Auth from './components/Auth';
 import Onboarding from './components/Onboarding';
-import { api } from './api';
+import { api, BASE_URL } from './api';
 
 // Preset Catalog habits if the user has 0 habits
 const CATALOG_HABITS = [
@@ -154,7 +154,7 @@ export default function App() {
     // Update in backend silently
     try {
       if (user.email) {
-        await axios.put('http://localhost:5050/api/auth/complete-profile', {
+        await axios.put(`${BASE_URL}/api/auth/complete-profile`, {
           email: user.email,
           name: user.name,
           birthday: user.birthday,
